@@ -28,7 +28,7 @@
 	<div
 		class="fixed inset-0 z-40 transition-opacity duration-200 opacity-0 pointer-events-none bg-slate-900 bg-opacity-30 lg:z-auto lg:hidden"
 		aria-hidden="true"
-	/>
+	></div>
 	<!---->
 
 	<div

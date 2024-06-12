@@ -36,7 +36,7 @@
 		{#if propNewNotifications}
 			<div
 				class="absolute right-0 top-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-rose-500 dark:border-[#182235]"
-			/>
+			></div>
 		{/if}
 	</button>
 	{#if stateExpanded}
