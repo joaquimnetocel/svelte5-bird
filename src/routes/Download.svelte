@@ -1,5 +1,7 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
-	let stateVisible = true;
+	let stateVisible = $state(true);
 </script>
 
 {#if stateVisible}
@@ -28,7 +30,7 @@
 				</a>
 			</div>
 			<button
-				on:click={() => (stateVisible = !stateVisible)}
+				onclick={() => (stateVisible = !stateVisible)}
 				class="pl-2 ml-3 border-l border-gray-700 text-slate-500 hover:text-slate-400"
 			>
 				<span class="sr-only">Close</span>

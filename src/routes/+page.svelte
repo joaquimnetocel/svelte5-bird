@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import { functionSetMenuStates } from '$lib/functions/index.js';
 	import Download from './Download.svelte';

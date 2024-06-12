@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import MobileMenuButton from '$lib/components/MobileMenuButton.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
@@ -11,14 +13,29 @@
 	import { functionCreateExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
 	import { functionCreateMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
+	import type { Snippet } from 'svelte';
 
-	export let propSidebarData: typeSidebarData<string>;
-	export let propExpandAllMenus = true;
-	export let propLogoImage: string | undefined = undefined;
-	export let propLogoWidth: number | undefined = undefined;
-	export let propLogoHref: string | undefined = undefined;
-
-	export let propTitle: string | undefined = undefined;
+	let {
+		children,
+		snippetHeader,
+		snippetFooter,
+		propSidebarData,
+		propExpandAllMenus = true,
+		propLogoImage,
+		propLogoWidth,
+		propLogoHref,
+		propTitle,
+	}: {
+		children: Snippet;
+		snippetHeader: Snippet;
+		snippetFooter: Snippet;
+		propSidebarData: typeSidebarData<string>;
+		propExpandAllMenus?: boolean;
+		propLogoImage?: string;
+		propLogoWidth?: number;
+		propLogoHref?: string;
+		propTitle?: string;
+	} = $props();
 
 	functionCreateMobileMenuStore();
 	functionCreateDarkModeStore();
@@ -26,7 +43,7 @@
 	functionCreateExpandedMenuStore();
 	const storeDarkMode = functionReadDarkModeStore();
 
-	let stateSidebarExpanded = functionSidebarExpanded();
+	let stateSidebarExpanded = $state(functionSidebarExpanded());
 	function functionSidebarExpanded() {
 		if (functionIsRunningOnBrowser()) {
 			return localStorage.getItem('storageSidebarExpanded') === 'false' ? false : true;
@@ -64,17 +81,17 @@
 									{propTitle ?? 'SVELTE-BIRD'}
 								</div>
 							</a>
-							<slot name="slotHeader" />
+							{@render snippetHeader()}
 						</div>
 					</div>
 				</header>
 				<main class="flex flex-col flex-grow overflow-y-auto">
-					<slot />
+					{@render children()}
 				</main>
 				<footer
 					class="px-2 sm:px-4 lg:px-4 sticky z-30 border-t border-slate-400 bg-white dark:border-slate-700 dark:bg-[#182235]"
 				>
-					<slot name="slotFooter" />
+					{@render snippetFooter()}
 				</footer>
 			</div>
 		</div>

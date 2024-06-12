@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import Bottom from '$lib/components/Sidebar/Bottom.svelte';
 	import CloseButton from '$lib/components/Sidebar/CloseButton.svelte';
@@ -10,13 +12,23 @@
 	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
 
-	export let propSidebarExpanded: boolean;
-	export let propSidebarData: typeSidebarData<string>;
-	export let propExpandAllMenus: boolean;
-	export let propLogoImage: string | undefined;
-	export let propLogoWidth: number | undefined;
-	export let propLogoHref: string | undefined;
-	export let propTitle: string | undefined;
+	let {
+		propSidebarExpanded = $bindable(),
+		propSidebarData,
+		propExpandAllMenus,
+		propLogoImage,
+		propLogoWidth,
+		propLogoHref,
+		propTitle,
+	}: {
+		propSidebarExpanded: boolean;
+		propSidebarData: typeSidebarData<string>;
+		propExpandAllMenus: boolean;
+		propLogoImage?: string;
+		propLogoWidth?: number;
+		propLogoHref?: string;
+		propTitle?: string;
+	} = $props();
 
 	const storeMobileMenu = functionReadMobileMenuStore();
 	const storeActiveMenu = functionReadActiveMenuStore();
