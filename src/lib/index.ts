@@ -1,1 +1,3 @@
-// Reexport your entry components here
+import SvelteBird from './SvelteBird.svelte';
+
+export { SvelteBird };
