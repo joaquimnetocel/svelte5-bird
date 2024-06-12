@@ -1,13 +1,16 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
 	import type { typeNotificationsData } from '$lib/types/typeNotificationsData.js';
 	import { slide } from 'svelte/transition';
 
-	export let propNewNotifications = true;
-	export let propTitle = 'NOTIFICATIONS:';
-	export let propData: typeNotificationsData = [];
-	export let propNotFoundMessage = 'NO NOTIFICATION FOUND!';
-	export let propIcon = `
+	let {
+		propNewNotifications = true,
+		propTitle = 'NOTIFICATIONS:',
+		propData = [],
+		propNotFoundMessage = 'NO NOTIFICATION FOUND!',
+		propIcon = `
 		<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 			<path
 				class="fill-current text-slate-500 dark:text-slate-400"
@@ -18,14 +21,21 @@
 				d="M16 9.5c0-.987-.429-1.897-1.147-2.639C14.124 10.348 10.66 13 6.5 13c-.103 0-.202-.018-.305-.021C7.231 13.617 8.556 14 10 14c.449 0 .886-.04 1.307-.11L15 16v-4h-.012C15.627 11.285 16 10.425 16 9.5z"
 			/>
 		</svg>
-	`;
+	`,
+	}: {
+		propNewNotifications?: boolean;
+		propTitle?: string;
+		propData?: typeNotificationsData;
+		propNotFoundMessage?: string;
+		propIcon?: string;
+	} = $props();
 
-	let stateExpanded = false;
+	let stateExpanded = $state(false);
 </script>
 
 <div use:functionClickOutside={() => (stateExpanded = false)} class="relative inline-flex">
 	<button
-		on:click={() => (stateExpanded = !stateExpanded)}
+		onclick={() => (stateExpanded = !stateExpanded)}
 		class="flex items-center justify-center w-8 h-8 rounded-full false bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"
 		aria-haspopup="true"
 		aria-expanded={stateExpanded}
