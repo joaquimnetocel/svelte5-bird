@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import type { typeMenuWithSubmenus } from '$lib/types/typeSidebarData.js';
 	import { slide } from 'svelte/transition';
@@ -5,17 +7,29 @@
 	import { functionReadExpandedMenuStore } from '../../stores/storeExpandedMenu.js';
 	import { functionReadMobileMenuStore } from '../../stores/storeMobileMenu.js';
 
-	export let propData: typeMenuWithSubmenus<string>;
-	export let propActiveMenu: string | undefined = undefined;
-	export let propExpandedMenu: string | undefined = undefined;
-	export let propExpandAllMenus: boolean;
-	export let propSidebarExpanded: boolean;
+	let {
+		propData,
+		propActiveMenu,
+		propExpandedMenu,
+		propExpandAllMenus,
+		propSidebarExpanded = $bindable(),
+	}: {
+		propData: typeMenuWithSubmenus<string>;
+		propActiveMenu: string;
+		propExpandedMenu: string;
+		propExpandAllMenus: boolean;
+		propSidebarExpanded: boolean;
+	} = $props();
 
 	const storeMobileMenu = functionReadMobileMenuStore();
 	const storeActiveMenu = functionReadActiveMenuStore();
 	const storeExpandedMenu = functionReadExpandedMenuStore();
 
-	$: stateExpanded = propExpandAllMenus || propExpandedMenu === propData.stringName;
+	let stateExpanded = $state(propExpandAllMenus || propExpandedMenu === propData.stringName);
+
+	$effect(() => {
+		stateExpanded = propExpandAllMenus || propExpandedMenu === propData.stringName;
+	});
 </script>
 
 <li
@@ -24,7 +38,7 @@
 >
 	<button
 		type="button"
-		on:click={() => {
+		onclick={() => {
 			stateExpanded = !stateExpanded;
 			propSidebarExpanded = true;
 		}}
@@ -57,7 +71,7 @@
 				{#each propData.arraySubmenus as currentSubmenu}
 					<li class="mb-1 last:mb-0">
 						<a
-							on:click={() => {
+							onclick={() => {
 								$storeMobileMenu = false;
 								$storeActiveMenu = currentSubmenu.stringName;
 								$storeExpandedMenu = propData.stringName;

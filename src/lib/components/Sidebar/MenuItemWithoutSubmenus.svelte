@@ -1,11 +1,18 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import type { typeMenuWithoutSubmenus } from '$lib/types/typeSidebarData.js';
 	import { functionReadActiveMenuStore } from '../../stores/storeActiveMenu.js';
 	import { functionReadExpandedMenuStore } from '../../stores/storeExpandedMenu.js';
 	import { functionReadMobileMenuStore } from '../../stores/storeMobileMenu.js';
 
-	export let propActiveMenu: string | undefined = undefined;
-	export let propData: typeMenuWithoutSubmenus<string>;
+	let {
+		propActiveMenu,
+		propData,
+	}: {
+		propActiveMenu: string;
+		propData: typeMenuWithoutSubmenus<string>;
+	} = $props();
 
 	const storeMobileMenu = functionReadMobileMenuStore();
 	const storeActiveMenu = functionReadActiveMenuStore();
@@ -24,7 +31,7 @@
 		class:text-slate-200={propActiveMenu !== propData.stringName}
 		class:text-black={propActiveMenu === propData.stringName}
 		target={propData.stringTarget}
-		on:click={() => {
+		onclick={() => {
 			$storeMobileMenu = false;
 			$storeActiveMenu = propData.stringName;
 			$storeExpandedMenu = '';

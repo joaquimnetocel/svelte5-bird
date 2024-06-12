@@ -2,7 +2,7 @@
 
 <script lang="ts">
 	let {
-		propSidebarExpanded,
+		propSidebarExpanded = $bindable(),
 	}: {
 		propSidebarExpanded: boolean;
 	} = $props();
