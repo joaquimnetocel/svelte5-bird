@@ -1,13 +1,15 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
 	import { slide } from 'svelte/transition';
 
-	let stateVisible = false;
+	let stateVisible = $state(false);
 </script>
 
 <div>
 	<button
-		on:click={() => (stateVisible = !stateVisible)}
+		onclick={() => (stateVisible = !stateVisible)}
 		class="flex items-center justify-center w-8 h-8 ml-3 rounded-full false bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"
 		aria-controls="search-modal"
 	>

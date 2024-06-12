@@ -1,33 +1,49 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
 	import imageAvatar from '$lib/images/logo.webp';
 	import type { typeUserData } from '$lib/types/typeUserData.js';
+	import type { Snippet } from 'svelte';
 	import { slide } from 'svelte/transition';
 
-	export let propButtonText = 'SIGN OUT';
-	export let propButtonLink = '/';
-	export let propImage: string | undefined = undefined;
-	export let propTitle = 'John Smith';
-	export let propInternalTitle = 'John Smith';
-	export let propInternalSubtitle: string | undefined = undefined;
-	export let propUserMenuArray: typeUserData = [
-		{
-			stringText: 'GITHUB',
-			stringHref: 'https://github.com/joaquimnetocel/svelte-bird',
-			stringTarget: '_blank',
-		},
-		{
-			stringText: 'NPM',
-			stringHref: 'https://www.npmjs.com/package/svelte-bird',
-			stringTarget: '_blank',
-		},
-	];
-	let stateExpanded = false;
+	let {
+		children,
+		propButtonText = 'SIGN OUT',
+		propButtonLink = '/',
+		propImage,
+		propTitle = 'John Smith',
+		propInternalTitle = 'John Smith',
+		propInternalSubtitle,
+		propUserMenuArray = [
+			{
+				stringText: 'GITHUB',
+				stringHref: 'https://github.com/joaquimnetocel/svelte-bird',
+				stringTarget: '_blank',
+			},
+			{
+				stringText: 'NPM',
+				stringHref: 'https://www.npmjs.com/package/svelte-bird',
+				stringTarget: '_blank',
+			},
+		],
+	}: {
+		propButtonText?: string;
+		propButtonLink?: string;
+		propImage?: string;
+		propTitle?: string;
+		propInternalTitle?: string;
+		propInternalSubtitle?: string;
+		propUserMenuArray?: typeUserData;
+		children?: Snippet;
+	} = $props();
+
+	let stateExpanded = $state(false);
 </script>
 
 <div use:functionClickOutside={() => (stateExpanded = false)} class="relative inline-flex">
 	<button
-		on:click={() => (stateExpanded = !stateExpanded)}
+		onclick={() => (stateExpanded = !stateExpanded)}
 		class="inline-flex items-center justify-center group"
 		aria-haspopup="true"
 		aria-expanded="false"
@@ -59,14 +75,16 @@
 		>
 			<div>
 				<div class="mb-1 border-b border-slate-200 px-3 pb-2 pt-0.5 dark:border-slate-700">
-					<slot>
+					{#if children}
+						{@render children()}
+					{:else}
 						<div class="font-medium text-slate-800 dark:text-slate-100">{propInternalTitle}</div>
 						{#if propInternalSubtitle !== undefined}
 							<div class="text-xs italic text-slate-500 dark:text-slate-400">
 								{propInternalSubtitle}
 							</div>
 						{/if}
-					</slot>
+					{/if}
 				</div>
 				<ul>
 					{#each propUserMenuArray as currentUserMenu}
@@ -86,7 +104,7 @@
 					<div class="mt-1 border-t border-slate-200 px-3 pt-2 pb-0.5 dark:border-slate-700">
 						<a
 							href={propButtonLink}
-							class="block px-3 py-1 font-semibold border rounded whitespace-nowrap bg-zinc-100 text-zinc-700 border-zinc-700 hover:bg-zinc-300 hover:border-transparent"
+							class="block px-3 py-1 font-semibold text-center border rounded whitespace-nowrap bg-zinc-100 text-zinc-700 border-zinc-700 hover:bg-zinc-300 hover:border-transparent"
 						>
 							{propButtonText}
 						</a>

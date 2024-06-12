@@ -1,23 +1,33 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
+	import type { Snippet } from 'svelte';
 	import { slide } from 'svelte/transition';
 
-	export let propTitle = 'NEED HELP?';
-	export let propIcon = `
+	let {
+		children,
+		propTitle = 'NEED HELP?',
+		propIcon = `
 		<svg class="w-4 h-4" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
 			<path
 				class="fill-current text-slate-500 dark:text-slate-400"
 				d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 12c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-3H7V4h2v5z"
 			/>
 		</svg>
-	`;
+	`,
+	}: {
+		children?: Snippet;
+		propTitle?: string;
+		propIcon?: string;
+	} = $props();
 
-	let stateVisible = false;
+	let stateVisible = $state(false);
 </script>
 
 <div use:functionClickOutside={() => (stateVisible = false)} class="relative inline-flex">
 	<button
-		on:click={() => (stateVisible = !stateVisible)}
+		onclick={() => (stateVisible = !stateVisible)}
 		class="flex items-center justify-center w-8 h-8 rounded-full false bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"
 		aria-haspopup="true"
 		aria-expanded="false"
@@ -38,7 +48,9 @@
 				>
 					{propTitle}
 				</div>
-				<slot>
+				{#if children}
+					{@render children()}
+				{:else}
 					<ul>
 						<li>
 							<a
@@ -87,7 +99,7 @@
 							</a>
 						</li>
 					</ul>
-				</slot>
+				{/if}
 			</div>
 		</div>
 	{/if}

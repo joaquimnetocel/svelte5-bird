@@ -1,3 +1,5 @@
+<svelte:options runes={true} />
+
 <script lang="ts">
 	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 
@@ -5,7 +7,7 @@
 </script>
 
 <button
-	on:click={() => ($storeMobileMenu = !$storeMobileMenu)}
+	onclick={() => ($storeMobileMenu = !$storeMobileMenu)}
 	class="mr-3 text-slate-500 hover:text-slate-600 lg:hidden"
 	aria-controls="sidebar"
 	aria-expanded="false"
