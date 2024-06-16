@@ -1,16 +1,16 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
+	import { functionReadStore } from '$lib/functions/stores.svelte.js';
 
-	const storeMobileMenu = functionReadMobileMenuStore();
+	const storeMobileMenu = functionReadStore<boolean>('contextIsMobileMenuVisible');
 </script>
 
 <button
 	class="ml-auto text-slate-500 hover:text-slate-400 lg:hidden"
 	aria-controls="sidebar"
 	aria-expanded="false"
-	onclick={() => ($storeMobileMenu = !$storeMobileMenu)}
+	onclick={() => (storeMobileMenu.value = !storeMobileMenu.value)}
 >
 	<!--<span class="sr-only">Close sidebar</span>-->
 	<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

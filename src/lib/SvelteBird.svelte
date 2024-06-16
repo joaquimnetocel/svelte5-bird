@@ -4,14 +4,13 @@
 	import MobileMenuButton from '$lib/components/MobileMenuButton.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import { functionIsRunningOnBrowser } from '$lib/functions/functionIsRunningOnBrowser.js';
-	import imageLogo from '$lib/images/logo.webp';
-	import { functionCreateActiveMenuStore } from '$lib/stores/storeActiveMenu.js';
 	import {
-		functionCreateDarkModeStore,
-		functionReadDarkModeStore,
-	} from '$lib/stores/storeDarkMode.js';
+		functionCreatePersistentStore,
+		functionCreateStore,
+		functionReadStore,
+	} from '$lib/functions/stores.svelte.js';
+	import imageLogo from '$lib/images/logo.webp';
 	import { functionCreateExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
-	import { functionCreateMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
 	import type { Snippet } from 'svelte';
 
@@ -37,11 +36,11 @@
 		propTitle?: string;
 	} = $props();
 
-	functionCreateMobileMenuStore();
-	functionCreateDarkModeStore();
-	functionCreateActiveMenuStore();
+	functionCreateStore<boolean>(false, 'contextIsMobileMenuVisible');
+	functionCreatePersistentStore(false, 'contextIsInDarkMode');
+	functionCreateStore('', 'contextActiveMenu');
 	functionCreateExpandedMenuStore();
-	const storeDarkMode = functionReadDarkModeStore();
+	const storeDarkMode = functionReadStore<boolean>('contextIsInDarkMode');
 
 	let stateSidebarExpanded = $state(functionSidebarExpanded());
 	function functionSidebarExpanded() {
@@ -52,7 +51,11 @@
 	}
 </script>
 
-<div id="idHtml" class:dark={$storeDarkMode} style:color-scheme={$storeDarkMode ? 'dark' : ''}>
+<div
+	id="idHtml"
+	class:dark={storeDarkMode.value}
+	style:color-scheme={storeDarkMode.value ? 'dark' : ''}
+>
 	<div
 		id="idBody"
 		class:classSidebarExpanded={stateSidebarExpanded}

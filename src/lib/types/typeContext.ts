@@ -1,1 +1,4 @@
-export type typeContext = 'contextIsMobileMenuVisible';
+export type typeContext =
+	| 'contextIsMobileMenuVisible'
+	| 'contextIsInDarkMode'
+	| 'contextActiveMenu';

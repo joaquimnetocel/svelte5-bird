@@ -1,9 +1,9 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadDarkModeStore } from '$lib/stores/storeDarkMode.js';
+	import { functionReadStore } from '$lib/functions/stores.svelte.js';
 
-	const storeDarkMode = functionReadDarkModeStore();
+	const storeDarkMode = functionReadStore<boolean>('contextIsInDarkMode');
 </script>
 
 <div>
@@ -12,7 +12,7 @@
 		name="idLightSwitch"
 		id="idLightSwitch"
 		class="sr-only"
-		bind:checked={$storeDarkMode}
+		bind:checked={storeDarkMode.value}
 	/>
 	<label
 		class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"

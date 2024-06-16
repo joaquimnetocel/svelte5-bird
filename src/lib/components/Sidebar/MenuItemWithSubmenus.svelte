@@ -1,9 +1,8 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadActiveMenuStore } from '$lib/stores/storeActiveMenu.js';
+	import { functionReadStore } from '$lib/functions/stores.svelte.js';
 	import { functionReadExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
-	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 	import type { typeMenuWithSubmenus } from '$lib/types/typeSidebarData.js';
 	import { slide } from 'svelte/transition';
 
@@ -17,8 +16,8 @@
 		propSidebarExpanded: boolean;
 	} = $props();
 
-	const storeMobileMenu = functionReadMobileMenuStore();
-	const storeActiveMenu = functionReadActiveMenuStore();
+	const storeMobileMenu = functionReadStore<boolean>('contextIsMobileMenuVisible');
+	const storeActiveMenu = functionReadStore('contextActiveMenu');
 	const storeExpandedMenu = functionReadExpandedMenuStore();
 
 	let stateExpanded = $state(propExpandAllMenus || $storeExpandedMenu === propData.stringName);
@@ -68,15 +67,15 @@
 					<li class="mb-1 last:mb-0">
 						<a
 							onclick={() => {
-								$storeMobileMenu = false;
-								$storeActiveMenu = currentSubmenu.stringName;
+								storeMobileMenu.value = false;
+								storeActiveMenu.value = currentSubmenu.stringName;
 								$storeExpandedMenu = propData.stringName;
 							}}
-							class:bg-gradient-to-r={currentSubmenu.stringName === $storeActiveMenu}
-							class:from-[#fcb69f]={currentSubmenu.stringName === $storeActiveMenu}
-							class:to-[#ffecd2]={currentSubmenu.stringName === $storeActiveMenu}
-							class:text-black={currentSubmenu.stringName === $storeActiveMenu}
-							class:text-slate-400={currentSubmenu.stringName !== $storeActiveMenu}
+							class:bg-gradient-to-r={currentSubmenu.stringName === storeActiveMenu.value}
+							class:from-[#fcb69f]={currentSubmenu.stringName === storeActiveMenu.value}
+							class:to-[#ffecd2]={currentSubmenu.stringName === storeActiveMenu.value}
+							class:text-black={currentSubmenu.stringName === storeActiveMenu.value}
+							class:text-slate-400={currentSubmenu.stringName !== storeActiveMenu.value}
 							aria-current="page"
 							class="block truncate transition duration-150 rounded-md ps-2"
 							href={currentSubmenu.stringHref}
@@ -88,10 +87,10 @@
 								{currentSubmenu.stringText}
 								{#if currentSubmenu.stringBadge !== undefined}
 									<div
-										class:text-white={$storeActiveMenu === currentSubmenu.stringName}
-										class:bg-slate-800={$storeActiveMenu === currentSubmenu.stringName}
-										class:text-slate-700={$storeActiveMenu !== currentSubmenu.stringName}
-										class:bg-slate-100={$storeActiveMenu !== currentSubmenu.stringName}
+										class:text-white={storeActiveMenu.value === currentSubmenu.stringName}
+										class:bg-slate-800={storeActiveMenu.value === currentSubmenu.stringName}
+										class:text-slate-700={storeActiveMenu.value !== currentSubmenu.stringName}
+										class:bg-slate-100={storeActiveMenu.value !== currentSubmenu.stringName}
 										class="flex items-center h-5 px-2 mr-1 text-xs font-medium rounded"
 									>
 										{currentSubmenu.stringBadge}

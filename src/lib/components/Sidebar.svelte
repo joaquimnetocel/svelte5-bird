@@ -7,7 +7,7 @@
 	import MenuItemWithSubmenus from '$lib/components/Sidebar/MenuItemWithSubmenus.svelte';
 	import MenuItemWithoutSubmenus from '$lib/components/Sidebar/MenuItemWithoutSubmenus.svelte';
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
-	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
+	import { functionReadStore } from '$lib/functions/stores.svelte.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
 
 	let {
@@ -28,10 +28,10 @@
 		propTitle?: string;
 	} = $props();
 
-	const storeMobileMenu = functionReadMobileMenuStore();
+	const storeMobileMenu = functionReadStore<boolean>('contextIsMobileMenuVisible');
 </script>
 
-<div use:functionClickOutside={() => ($storeMobileMenu = false)}>
+<div use:functionClickOutside={() => (storeMobileMenu.value = false)}>
 	<!-- Sidebar backdrop (mobile only) -->
 	<div
 		class="fixed inset-0 z-40 transition-opacity duration-200 opacity-0 pointer-events-none bg-slate-900 bg-opacity-30 lg:z-auto lg:hidden"
@@ -40,8 +40,8 @@
 	<!---->
 
 	<div
-		class:translate-x-0={$storeMobileMenu}
-		class:-translate-x-64={!$storeMobileMenu}
+		class:translate-x-0={storeMobileMenu.value}
+		class:-translate-x-64={!storeMobileMenu.value}
 		class:classContractedScrollWidth={!propSidebarExpanded}
 		class:classExpandedScrollWidth={propSidebarExpanded}
 		class="lg:classSidebarExpanded:!w-64 absolute left-0 top-0 z-40 flex h-screen w-64 shrink-0 -translate-x-64 flex-col overflow-y-auto overflow-x-hidden bg-colorDark p-4 transition-all duration-200 ease-in-out lg:static lg:left-auto lg:top-auto lg:w-20 lg:translate-x-0 2xl:!w-64"

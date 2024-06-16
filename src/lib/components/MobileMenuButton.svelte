@@ -1,13 +1,13 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
+	import { functionReadStore } from '$lib/functions/stores.svelte.js';
 
-	const storeMobileMenu = functionReadMobileMenuStore();
+	const storeMobileMenu = functionReadStore<boolean>('contextIsMobileMenuVisible');
 </script>
 
 <button
-	onclick={() => ($storeMobileMenu = !$storeMobileMenu)}
+	onclick={() => (storeMobileMenu.value = !storeMobileMenu.value)}
 	class="mr-3 text-slate-500 hover:text-slate-600 lg:hidden"
 >
 	<!--<span class="sr-only">Open sidebar</span>-->
