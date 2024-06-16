@@ -9,14 +9,14 @@
 <div>
 	<input
 		type="checkbox"
-		name="light-switch"
-		id="light-switch"
-		class="sr-only light-switch"
+		name="idLightSwitch"
+		id="idLightSwitch"
+		class="sr-only"
 		bind:checked={$storeDarkMode}
 	/>
 	<label
 		class="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80"
-		for="light-switch"
+		for="idLightSwitch"
 		><svg class="w-4 h-4 dark:hidden" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
 			<path
 				class="fill-current text-slate-400"
@@ -42,6 +42,6 @@
 				d="M12.5 6a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 6Z"
 			/></svg
 		>
-		<span class="sr-only">Switch to light / dark version</span>
+		<!--<span class="sr-only">Switch to light / dark version</span>-->
 	</label>
 </div>

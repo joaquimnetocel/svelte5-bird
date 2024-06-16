@@ -1,10 +1,10 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
+	import { functionReadActiveMenuStore } from '$lib/stores/storeActiveMenu.js';
+	import { functionReadExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
+	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 	import type { typeMenuWithoutSubmenus } from '$lib/types/typeSidebarData.js';
-	import { functionReadActiveMenuStore } from '../../stores/storeActiveMenu.js';
-	import { functionReadExpandedMenuStore } from '../../stores/storeExpandedMenu.js';
-	import { functionReadMobileMenuStore } from '../../stores/storeMobileMenu.js';
 
 	let {
 		propActiveMenu,
