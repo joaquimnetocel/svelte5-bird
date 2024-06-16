@@ -3,14 +3,11 @@
 <script lang="ts">
 	import MobileMenuButton from '$lib/components/MobileMenuButton.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
+	import { functionCreatePersistentStore } from '$lib/functions/functionCreatePersistentStore.svelte.js';
+	import { functionCreateStore } from '$lib/functions/functionCreateStore.svelte.js';
 	import { functionIsRunningOnBrowser } from '$lib/functions/functionIsRunningOnBrowser.js';
-	import {
-		functionCreatePersistentStore,
-		functionCreateStore,
-		functionReadStore,
-	} from '$lib/functions/stores.svelte.js';
+	import { functionReadStore } from '$lib/functions/functionReadStore.js';
 	import imageLogo from '$lib/images/logo.webp';
-	import { functionCreateExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
 	import type { Snippet } from 'svelte';
 
@@ -39,7 +36,7 @@
 	functionCreateStore<boolean>(false, 'contextIsMobileMenuVisible');
 	functionCreatePersistentStore(false, 'contextIsInDarkMode');
 	functionCreateStore('', 'contextActiveMenu');
-	functionCreateExpandedMenuStore();
+	functionCreateStore('', 'contextExpandedMenu');
 	const storeDarkMode = functionReadStore<boolean>('contextIsInDarkMode');
 
 	let stateSidebarExpanded = $state(functionSidebarExpanded());

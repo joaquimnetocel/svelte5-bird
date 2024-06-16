@@ -1,7 +1,7 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadStore } from '$lib/functions/stores.svelte.js';
+	import { functionReadStore } from '$lib/functions/functionReadStore.js';
 
 	const storeDarkMode = functionReadStore<boolean>('contextIsInDarkMode');
 </script>

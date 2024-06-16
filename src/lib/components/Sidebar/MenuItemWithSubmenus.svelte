@@ -1,8 +1,7 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadStore } from '$lib/functions/stores.svelte.js';
-	import { functionReadExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
+	import { functionReadStore } from '$lib/functions/functionReadStore.js';
 	import type { typeMenuWithSubmenus } from '$lib/types/typeSidebarData.js';
 	import { slide } from 'svelte/transition';
 
@@ -18,17 +17,17 @@
 
 	const storeMobileMenu = functionReadStore<boolean>('contextIsMobileMenuVisible');
 	const storeActiveMenu = functionReadStore('contextActiveMenu');
-	const storeExpandedMenu = functionReadExpandedMenuStore();
+	const storeExpandedMenu = functionReadStore('contextExpandedMenu');
 
-	let stateExpanded = $state(propExpandAllMenus || $storeExpandedMenu === propData.stringName);
+	let stateExpanded = $state(propExpandAllMenus || storeExpandedMenu.value === propData.stringName);
 
 	$effect(() => {
-		stateExpanded = propExpandAllMenus || $storeExpandedMenu === propData.stringName;
+		stateExpanded = propExpandAllMenus || storeExpandedMenu.value === propData.stringName;
 	});
 </script>
 
 <li
-	class:bg-slate-900={$storeExpandedMenu === propData.stringName}
+	class:bg-slate-900={storeExpandedMenu.value === propData.stringName}
 	class="px-3 py-2 mb-0.5 rounded-sm last:mb-0"
 >
 	<button
@@ -69,7 +68,7 @@
 							onclick={() => {
 								storeMobileMenu.value = false;
 								storeActiveMenu.value = currentSubmenu.stringName;
-								$storeExpandedMenu = propData.stringName;
+								storeExpandedMenu.value = propData.stringName;
 							}}
 							class:bg-gradient-to-r={currentSubmenu.stringName === storeActiveMenu.value}
 							class:from-[#fcb69f]={currentSubmenu.stringName === storeActiveMenu.value}

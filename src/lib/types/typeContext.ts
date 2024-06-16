@@ -1,4 +1,5 @@
 export type typeContext =
 	| 'contextIsMobileMenuVisible'
 	| 'contextIsInDarkMode'
-	| 'contextActiveMenu';
+	| 'contextActiveMenu'
+	| 'contextExpandedMenu';

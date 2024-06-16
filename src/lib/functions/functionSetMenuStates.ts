@@ -1,5 +1,4 @@
-import { functionReadStore } from '$lib/functions/stores.svelte.js';
-import { functionReadExpandedMenuStore } from '$lib/stores/index.js';
+import { functionReadStore } from '$lib/functions/functionReadStore.js';
 
 export const functionSetMenuStates = function <T>({
 	parActiveMenu,
@@ -9,7 +8,7 @@ export const functionSetMenuStates = function <T>({
 	parExpandedMenu?: T;
 }) {
 	const storeActiveMenu = functionReadStore<T>('contextActiveMenu');
-	const storeExpandedMenu = functionReadExpandedMenuStore<T | ''>();
+	const storeExpandedMenu = functionReadStore<T | ''>('contextExpandedMenu');
 	storeActiveMenu.value = parActiveMenu;
-	storeExpandedMenu.set(parExpandedMenu ?? '');
+	storeExpandedMenu.value = parExpandedMenu ?? '';
 };

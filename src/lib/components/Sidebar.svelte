@@ -7,7 +7,7 @@
 	import MenuItemWithSubmenus from '$lib/components/Sidebar/MenuItemWithSubmenus.svelte';
 	import MenuItemWithoutSubmenus from '$lib/components/Sidebar/MenuItemWithoutSubmenus.svelte';
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
-	import { functionReadStore } from '$lib/functions/stores.svelte.js';
+	import { functionReadStore } from '$lib/functions/functionReadStore.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
 
 	let {

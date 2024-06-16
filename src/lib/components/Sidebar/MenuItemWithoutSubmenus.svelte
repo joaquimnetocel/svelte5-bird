@@ -1,8 +1,7 @@
 <svelte:options runes={true} />
 
 <script lang="ts">
-	import { functionReadStore } from '$lib/functions/stores.svelte.js';
-	import { functionReadExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
+	import { functionReadStore } from '$lib/functions/functionReadStore.js';
 	import type { typeMenuWithoutSubmenus } from '$lib/types/typeSidebarData.js';
 
 	let {
@@ -13,7 +12,7 @@
 
 	const storeMobileMenu = functionReadStore<boolean>('contextIsMobileMenuVisible');
 	const storeActiveMenu = functionReadStore<string>('contextActiveMenu');
-	const storeExpandedMenu = functionReadExpandedMenuStore();
+	const storeExpandedMenu = functionReadStore('contextExpandedMenu');
 </script>
 
 <li
@@ -31,7 +30,7 @@
 		onclick={() => {
 			storeMobileMenu.value = false;
 			storeActiveMenu.value = propData.stringName;
-			$storeExpandedMenu = '';
+			storeExpandedMenu.value = '';
 		}}
 	>
 		<div class="flex items-center justify-between">
