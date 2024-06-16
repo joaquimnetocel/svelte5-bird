@@ -7,8 +7,6 @@
 	import MenuItemWithSubmenus from '$lib/components/Sidebar/MenuItemWithSubmenus.svelte';
 	import MenuItemWithoutSubmenus from '$lib/components/Sidebar/MenuItemWithoutSubmenus.svelte';
 	import { functionClickOutside } from '$lib/functions/functionClickOutside.js';
-	import { functionReadActiveMenuStore } from '$lib/stores/storeActiveMenu.js';
-	import { functionReadExpandedMenuStore } from '$lib/stores/storeExpandedMenu.js';
 	import { functionReadMobileMenuStore } from '$lib/stores/storeMobileMenu.js';
 	import type { typeSidebarData } from '$lib/types/typeSidebarData.js';
 
@@ -31,8 +29,6 @@
 	} = $props();
 
 	const storeMobileMenu = functionReadMobileMenuStore();
-	const storeActiveMenu = functionReadActiveMenuStore();
-	const storeExpandedMenu = functionReadExpandedMenuStore();
 </script>
 
 <div use:functionClickOutside={() => ($storeMobileMenu = false)}>
@@ -76,12 +72,10 @@
 					<ul class="mt-3">
 						{#each currentSection.arrayMenus as currentMenu}
 							{#if 'stringHref' in currentMenu}
-								<MenuItemWithoutSubmenus propData={currentMenu} propActiveMenu={$storeActiveMenu} />
+								<MenuItemWithoutSubmenus propData={currentMenu} />
 							{:else}
 								<MenuItemWithSubmenus
 									propData={currentMenu}
-									propActiveMenu={$storeActiveMenu}
-									propExpandedMenu={$storeExpandedMenu}
 									{propExpandAllMenus}
 									bind:propSidebarExpanded
 								/>

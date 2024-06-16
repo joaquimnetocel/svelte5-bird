@@ -7,10 +7,8 @@
 	import type { typeMenuWithoutSubmenus } from '$lib/types/typeSidebarData.js';
 
 	let {
-		propActiveMenu,
 		propData,
 	}: {
-		propActiveMenu: string;
 		propData: typeMenuWithoutSubmenus<string>;
 	} = $props();
 
@@ -21,15 +19,15 @@
 
 <li
 	class="mb-0.5 rounded-xl px-3 py-2 last:mb-0"
-	class:bg-gradient-to-r={propActiveMenu === propData.stringName}
-	class:from-[#fcb69f]={propActiveMenu === propData.stringName}
-	class:to-[#ffecd2]={propActiveMenu === propData.stringName}
+	class:bg-gradient-to-r={$storeActiveMenu === propData.stringName}
+	class:from-[#fcb69f]={$storeActiveMenu === propData.stringName}
+	class:to-[#ffecd2]={$storeActiveMenu === propData.stringName}
 >
 	<a
 		class="block transition duration-150"
 		href={propData.stringHref}
-		class:text-slate-200={propActiveMenu !== propData.stringName}
-		class:text-black={propActiveMenu === propData.stringName}
+		class:text-slate-200={$storeActiveMenu !== propData.stringName}
+		class:text-black={$storeActiveMenu === propData.stringName}
 		target={propData.stringTarget}
 		onclick={() => {
 			$storeMobileMenu = false;
@@ -50,10 +48,10 @@
 			{#if propData.stringBadge !== undefined}
 				<div class="flex ml-2">
 					<span
-						class:text-white={propActiveMenu === propData.stringName}
-						class:bg-slate-800={propActiveMenu === propData.stringName}
-						class:text-slate-700={propActiveMenu !== propData.stringName}
-						class:bg-slate-100={propActiveMenu !== propData.stringName}
+						class:text-white={$storeActiveMenu === propData.stringName}
+						class:bg-slate-800={$storeActiveMenu === propData.stringName}
+						class:text-slate-700={$storeActiveMenu !== propData.stringName}
+						class:bg-slate-100={$storeActiveMenu !== propData.stringName}
 						class="inline-flex items-center justify-center h-5 px-2 text-xs font-medium rounded"
 					>
 						{propData.stringBadge}
