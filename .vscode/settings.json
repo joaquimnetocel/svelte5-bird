@@ -1,0 +1,36 @@
+{
+	// TAB BEHAVIOR:
+	"editor.insertSpaces": false, // VSCODE WON'T INSERT SPACES WHEN PRESSING 'TAB'.
+	"editor.tabSize": 4, // THE NUMBER OF SPACES A TAB IS EQUAL TO.
+	"editor.detectIndentation": false, // DISABLE 'editor.tabSize' AND 'editor.insertSpaces' AUTOMATIC DETECTION BASED ON THE FILE CONTENTS.
+	/////
+	// EXPLORER SIDEBAR:
+	"explorer.sortOrder": "filesFirst", // FILES AND FOLDERS ARE SORTED BY THEIR NAMES. FILES ARE DISPLAYED BEFORE FOLDERS.
+	"explorer.confirmDelete": false, // THE EXPLORER WON'T ASK FOR CONFIRMATION WHEN DELETING A FILE VIA THE TRASH.
+	"workbench.tree.indent": 18, // CONTROLS TREE INDENTATION IN PIXELS.
+	/////
+	// GIT:
+	"git.autofetch": true, // COMMITS WILL AUTOMATICALLY BE FETCHED FROM THE DEFAULT REMOTE OF THE CURRENT GIT REPOSITORY.
+	"git.enableSmartCommit": true, // COMMIT ALL CHANGES WHEN THERE ARE NO STAGED CHANGES.
+	/////
+	// WINDOW BEHAVIOR:
+	"window.title": "${rootName}", // VSCODE WINDOW TITLE.
+	/////
+	// CODE FORMATTER:
+	"editor.codeActionsOnSave": { "source.sortImports": "explicit" }, // SORT IMPORTS ON SAVE.
+	"editor.formatOnSave": true, // FORMAT A FILE ON SAVE.
+	"editor.defaultFormatter": "esbenp.prettier-vscode", // DEFAULT FORMATTER.
+	/////
+	// SVELTE:
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode" // FORMATTER FOR SVELTE FILES.
+	},
+	"eslint.validate": ["javascript", "svelte"], // AN ARRAY OF LANGUAGE IDS WHICH SHOULD BE VALIDATED BY ESLINT.
+	"svelte.enable-ts-plugin": true, // ENABLES A TYPESCRIPT PLUGIN WHICH PROVIDES INTELLISENSE FOR SVELTE FILES INSIDE TS/JS FILES.
+	/////
+	// FILES
+	"files.associations": {
+		".vscode-settings.json": "jsonc" // ENABLE COMMENTS IN JSON FILES.
+	}
+	/////
+}
